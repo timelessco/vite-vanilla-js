@@ -1,0 +1,9 @@
+@import url("https://use.typekit.net/oaf3qkb.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	font-family: "tenon", sans-serif;
+}

@@ -1,0 +1,17 @@
+# Node.js
+.npmrc
+.nvmrc
+.browserslistrc
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+composer.lock
+
+# production
+/dist
+
+# Extras(if any)
+/playwright/.cache/
+/public

@@ -1,0 +1,18 @@
+{
+	"recommendations": [
+		// ESLint, Find and fix problems in your JavaScript code
+		"dbaeumer.vscode-eslint",
+		// Prettier is an opinionated code formatter.
+		"esbenp.prettier-vscode",
+		// Frontend
+		"bradlc.vscode-tailwindcss",
+
+		// Optional supporting extensions
+		"vivaxy.vscode-conventional-commits",
+		"aaron-bond.better-comments",
+		"formulahendry.auto-close-tag",
+		"formulahendry.auto-rename-tag",
+		"christian-kohler.npm-intellisense",
+		"christian-kohler.path-intellisense"
+	]
+}
