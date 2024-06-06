@@ -1,14 +1,19 @@
+import path from "node:path";
+
 import legacy from "@vitejs/plugin-legacy";
-
-import _config from "./_config.js";
-
-const HOST = _config.server.host;
-const PORT = _config.server.port;
+import { splitVendorChunkPlugin } from "vite";
 
 export default {
 	server: {
-		host: HOST,
-		port: PORT,
+		host: "localhost",
+		port: 3000,
 	},
-	plugins: [legacy()],
+	plugins: [legacy(), splitVendorChunkPlugin()],
+	build: {
+		rollupOptions: {
+			input: {
+				main: path.resolve(import.meta.dirname, "index.html"),
+			},
+		},
+	},
 };
