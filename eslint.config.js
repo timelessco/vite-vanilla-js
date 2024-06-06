@@ -1,20 +1,40 @@
+import angularParser from "@angular-eslint/template-parser";
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintConfigPrettier from "eslint-config-prettier";
-import eslintPluginSonarjs from "eslint-plugin-sonarjs";
+import eslintPluginTailwind from "eslint-plugin-tailwindcss";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import globals from "globals";
 
+const FLAT_RECOMMENDED = "flat/recommended";
 const compat = new FlatCompat();
+
+const templateParser = {
+	meta: angularParser.meta,
+	parseForESLint: angularParser.parseForESLint,
+};
 
 export default [
 	gitignore(),
 	js.configs.recommended,
 	eslintConfigPrettier,
-	eslintPluginUnicorn.configs["flat/recommended"],
-	eslintPluginSonarjs.configs.recommended,
+	eslintPluginUnicorn.configs[FLAT_RECOMMENDED],
 	...compat.extends("plugin:promise/recommended"),
+	{
+		files: ["**/*.html"],
+		languageOptions: {
+			parser: templateParser,
+		},
+
+		plugins: {
+			tailwindcss: eslintPluginTailwind,
+		},
+
+		rules: {
+			...eslintPluginTailwind.configs[FLAT_RECOMMENDED][1].rules,
+		},
+	},
 	{
 		ignores: ["**/.vercel", "**/package.json"],
 		languageOptions: {
@@ -37,9 +57,6 @@ export default [
 					extensions: [".js"],
 					moduleDirectory: ["node_modules", "src/"],
 				},
-			},
-			tailwindcss: {
-				callees: ["class"],
 			},
 		},
 

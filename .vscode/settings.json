@@ -33,6 +33,7 @@
 		"javascriptreact",
 		"typescript",
 		"typescriptreact",
+		"html",
 		"json",
 		"jsonc",
 		"json5",
