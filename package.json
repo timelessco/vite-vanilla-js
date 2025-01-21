@@ -14,8 +14,8 @@
 		"lint:prettier": "prettier --check --cache --cache-location=.prettiercache --ignore-unknown . ",
 		"preview": "vite preview",
 		"update:node-version-support": "npx installed-check --fix",
-		"updateDeps": "npx taze -I major",
-		"updateDeps:check": "npx taze -r major"
+		"updateDeps": "npx npm-check-updates -u --target patch",
+		"updateDeps:check": "npx npm-check-updates --interactive --format group --target patch"
 	},
 	"devDependencies": {
 		"@angular-eslint/template-parser": "19.0.2",
