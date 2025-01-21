@@ -3,12 +3,12 @@ import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintConfigPrettier from "eslint-config-prettier";
+import eslintPluginPromise from "eslint-plugin-promise";
 import eslintPluginTailwind from "eslint-plugin-tailwindcss";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import globals from "globals";
 
 const FLAT_RECOMMENDED = "flat/recommended";
-const compat = new FlatCompat();
 
 const templateParser = {
 	meta: angularParser.meta,
@@ -20,7 +20,7 @@ export default [
 	js.configs.recommended,
 	eslintConfigPrettier,
 	eslintPluginUnicorn.configs[FLAT_RECOMMENDED],
-	...compat.extends("plugin:promise/recommended"),
+	eslintPluginPromise.configs[FLAT_RECOMMENDED],
 	{
 		files: ["**/*.html"],
 		languageOptions: {
@@ -36,15 +36,10 @@ export default [
 		},
 	},
 	{
-		ignores: ["**/.vercel", "**/package.json"],
+		ignores: ["**/package.json"],
 		languageOptions: {
 			globals: {
 				...globals.browser,
-				EmblaCarousel: "readonly",
-				EmblaCarouselClassNames: "readonly",
-				gsap: "readonly",
-				ScrollToPlugin: "readonly",
-				ScrollTrigger: "readonly",
 			},
 
 			ecmaVersion: "latest",
