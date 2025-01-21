@@ -1,5 +1,4 @@
 import angularParser from "@angular-eslint/template-parser";
-import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import gitignore from "eslint-config-flat-gitignore";
 import eslintConfigPrettier from "eslint-config-prettier";

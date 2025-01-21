@@ -5,13 +5,12 @@
 
 # Lock files
 package-lock.json
-yarn.lock
 pnpm-lock.yaml
+yarn.lock
 composer.lock
 
 # production
 /dist
 
 # Extras(if any)
-/playwright/.cache/
 /public

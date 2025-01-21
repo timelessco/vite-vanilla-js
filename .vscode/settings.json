@@ -1,8 +1,10 @@
 {
+	// Quality of life improvements
+	// Git
 	"git.branchProtection": ["uat"],
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"githubPullRequests.ignoredPullRequestBranches": ["uat"],
 
+	// File Associations
 	"files.associations": {
 		"package.json": "json",
 		"*.svg": "html",
@@ -13,70 +15,25 @@
 		"*.tsx": "typescriptreact",
 		"*.jsx": "javascriptreact"
 	},
+
+	// File Exclusions
 	"files.exclude": {
 		"USE_GITIGNORE": true
 	},
 
+	// Search Exclusions
 	"search.useIgnoreFiles": true,
 	"search.useParentIgnoreFiles": true,
-
-	// General Tooling Extensions config
-
-	// Linters & Formatters
-	"prettier.enable": true,
-	"prettier.documentSelectors": ["**/*.blade.php", ""],
-	"eslint.enable": true,
-	"eslint.useESLintClass": true,
-	"eslint.workingDirectories": [{ "mode": "auto" }],
-	"eslint.validate": [
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact",
-		"html",
-		"json",
-		"jsonc",
-		"json5",
-		"yaml",
-		"toml"
-	],
-	"stylelint.enable": true,
-
-	// Tailwind CSS
-	// Detect additional class regex
-	"tailwindCSS.experimental.classRegex": [
-		// https://regex-vis.com/?r=%5C%5Cs*class%3A%5C%5Cs*%3F%5B%60%27%5C%22%5D%28.*%29%5B%60%27%5C%22%5D%5C%5Cs*%28%3F%3D%5B%3B%2C.%5D%29
-		// Selection visualizer at https://www.debuggex.com/
-		"\\s*class:\\s*?[`'\"](.*)[`'\"]\\s*(?=[;,.])",
-		"\\s*=>\\s*?[`'\"](.*)[`'\"]\\s*(?=[;,.])",
-		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-		["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-		"tw`([^`]*)", // tw`...`
-		"tw=\"([^\"]*)", // <div tw="..." />
-		"tw={\"([^\"}]*)", // <div tw={"..."} />
-		"tw\\.\\w+`([^`]*)", // tw.xxx`...`
-		"tw\\(.*?\\)`([^`]*)", // tw(Component)`...`
-		// const fieldStyles = /*tw*/ {
-		//     default: {
-		//       label: 'py-2',
-		//       input: 'px-3 py-2 font-medium text-sm',
-		//   },
-		//   inline: {
-		//       label: 'py-2',
-		//       input: 'px-3 py-2 font-medium text-sm',
-		//   },
-		// };
-		["/\\* tw\\*/ ([^;]*);", "\"([^']*)\""],
-		"\\/\\*\\s?tw:\\s?\\*\\/\\s?'(.*)'",
-		// For javascript objects https://github.com/tailwindlabs/tailwindcss-intellisense/issues/270#issuecomment-785038799 in GridLayoutVerticals style.js
-		":(?:.|\n)*?[\"'`]([^\"'`]*).*?,"
-	],
-	// Enable features in languages that are not supported by default. Add a mapping here between the new language and an already supported language.
-	"tailwindCSS.includeLanguages": {
-		"plaintext": "html",
-		"typescript": "javascript",
-		"typescriptreact": "javascript",
-		"javascriptreact": "javascript"
+	"search.exclude": {
+		// Default
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/*.code-search": true,
+		// Custom
+		"**/package-lock.json": true,
+		"**/pnpm-lock.yaml": true,
+		"**/yarn.lock": true,
+		"**/composer.lock": true
 	},
 
 	// Editor Formatters & Linters.
@@ -109,7 +66,6 @@
 	"css.lint.unknownAtRules": "ignore",
 	"less.validate": false,
 	"scss.validate": false,
-	"stylelint.validate": ["css", "scss"],
 
 	// Markdown
 	"markdown.validate.enabled": false,
@@ -121,52 +77,79 @@
 			"other": "on"
 		}
 	},
-	// Takes the config from .markdownlint.json but needed for inner folders
-	"markdownlint.config": {
-		"first-line-h1": false,
-		"no-inline-html": false,
-		"no-hard-tabs": { "code_blocks": false }
-	},
-	"markdownlint.ignore": ["**/node_modules/**", "**/CHANGELOG.md"],
 
-	// Other supporting Extensions config
+	// Must have extensions config
 
-	// Error Translator for TypeScript
-	"totalTypeScript.hideAllTips": true,
-	"totalTypeScript.hideBasicTips": true,
+	// Linters & Formatters
+	// True by default, change to false if you want to disable prettier
+	"prettier.enable": true,
+	"prettier.documentSelectors": ["**/*.blade.php"],
 
-	// Conventional Commit
-	"conventionalCommits.emojiFormat": "emoji",
-	"conventionalCommits.showEditor": true,
-	"conventionalCommits.lineBreak": "\\n",
-	"conventionalCommits.promptFooter": false,
-	"conventionalCommits.promptBody": false,
-
-	// AutoClosing Tag
-	"html.autoClosingTags": true,
-	"javascript.autoClosingTags": true,
-	"typescript.autoClosingTags": true,
-
-	// Auto close tag
-	"auto-close-tag.SublimeText3Mode": true,
-	"auto-close-tag.activationOnLanguage": [
-		"xml",
-		"php",
-		"blade",
-		"ejs",
-		"jinja",
+	// True by default, change to false if you want to disable eslint
+	"eslint.enable": true,
+	"eslint.useESLintClass": true,
+	"eslint.workingDirectories": [{ "mode": "auto" }],
+	"eslint.validate": [
 		"javascript",
 		"javascriptreact",
 		"typescript",
 		"typescriptreact",
-		"plaintext",
-		"markdown",
-		"vue",
-		"liquid",
-		"erb",
-		"lang-cfml",
-		"cfml",
-		"HTML (Eex)",
-		"mdx"
-	]
+		"json",
+		"jsonc",
+		"json5",
+		"yaml",
+		"toml"
+	],
+
+	// True by default, change to false if you want to disable stylelint
+	// "stylelint.enable": true,
+
+	// Tailwind CSS
+	// Detect additional class regex
+	"tailwindCSS.experimental.classRegex": [
+		// https://regex-vis.com/?r=%5C%5Cs*class%3A%5C%5Cs*%3F%5B%60%27%5C%22%5D%28.*%29%5B%60%27%5C%22%5D%5C%5Cs*%28%3F%3D%5B%3B%2C.%5D%29
+		// Selection visualizer at https://www.debuggex.com/
+		"\\s*class:\\s*?[`'\"](.*)[`'\"]\\s*(?=[;,.])",
+		"\\s*=>\\s*?[`'\"](.*)[`'\"]\\s*(?=[;,.])",
+		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		"tw`([^`]*)", // tw`...`
+		"tw=\"([^\"]*)", // <div tw="..." />
+		"tw={\"([^\"}]*)", // <div tw={"..."} />
+		"tw\\.\\w+`([^`]*)", // tw.xxx`...`
+		"tw\\(.*?\\)`([^`]*)", // tw(Component)`...`
+		// const fieldStyles = /*tw*/ {
+		//     default: {
+		//       label: 'py-2',
+		//       input: 'px-3 py-2 font-medium text-sm',
+		//   },
+		//   inline: {
+		//       label: 'py-2',
+		//       input: 'px-3 py-2 font-medium text-sm',
+		//   },
+		// };
+		["/\\* tw\\*/ ([^;]*);", "\"([^']*)\""],
+		"\\/\\*\\s?tw:\\s?\\*\\/\\s?'(.*)'",
+		// For javascript objects https://github.com/tailwindlabs/tailwindcss-intellisense/issues/270#issuecomment-785038799 in GridLayoutVerticals style.js
+		// https://regex101.com/r/dPgaxd/1
+		[":\\s{((?:.|\n)*?)},", ":\\s*[\"'`]([^'\"`]*)(?:(?:[\"'`],)|\\s\\$\\{)"],
+		// For pageLayoutStyles.js
+		["=\\s{((?:.|\n)*?)};", ":\\s*[\"'`]([^'\"`]*)(?:(?:[\"'`],)|\\s\\$\\{)"],
+		["\\$\\{([^}]*)\\}", "(?:['\"`]([^'\"`]*)['\"`])"],
+		// For twMerge
+		["twMerge\\((([^)]*)\\))", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		"\\w+=\"([^\"]*)\""
+	],
+	// Enable features in languages that are not supported by default. Add a mapping here between the new language and an already supported language.
+	"tailwindCSS.includeLanguages": {
+		"plaintext": "html",
+		"typescript": "javascript",
+		"typescriptreact": "javascript",
+		"javascriptreact": "javascript"
+	}
+
+	// Optional supporting extensions config
+	// Error Translator for TypeScript
+	// "totalTypeScript.hideAllTips": true,
+	// "totalTypeScript.hideBasicTips": true,
 }
