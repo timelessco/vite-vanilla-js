@@ -19,7 +19,6 @@
 	},
 	"devDependencies": {
 		"@angular-eslint/template-parser": "19.0.2",
-		"@eslint/eslintrc": "3.2.0",
 		"@eslint/js": "9.18.0",
 		"@ianvs/prettier-plugin-sort-imports": "4.4.1",
 		"@vitejs/plugin-legacy": "6.0.0",
