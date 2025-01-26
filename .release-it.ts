@@ -11,8 +11,8 @@ export default {
 	git: {
 		requireBranch: "main",
 		requireCommits: true,
-		requireCleanWorkingDir: false,
-		commitMessage: "chore(release): 🚀 version${version}",
+		// requireCleanWorkingDir: false,
+		commitMessage: "Release v${version}",
 		commitArgs: ["--no-verify", "-S"],
 		tagArgs: ["-s"],
 	},
