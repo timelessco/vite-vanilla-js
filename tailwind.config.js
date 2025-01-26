@@ -4,7 +4,7 @@ import plugin from "tailwindcss/plugin";
 export default {
 	content: ["./index.html", "./src/**/*.{html,css,js}"],
 	plugins: [
-		plugin(function ({ addBase }) {
+		plugin(({ addBase }) => {
 			addBase({
 				"*": {
 					"text-wrap": "pretty",
@@ -14,7 +14,7 @@ export default {
 				},
 			});
 		}),
-		plugin(function ({ addUtilities }) {
+		plugin(({ addUtilities }) => {
 			addUtilities({
 				".optimizeLegibility": {
 					"text-rendering": "optimizeLegibility",

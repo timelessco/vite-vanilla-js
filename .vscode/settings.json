@@ -30,22 +30,15 @@
 		"**/bower_components": true,
 		"**/*.code-search": true,
 		// Custom
-		"**/package-lock.json": true,
-		"**/pnpm-lock.yaml": true,
-		"**/yarn.lock": true,
-		"**/composer.lock": true
+		"**/pnpm-lock.yaml": true
 	},
 
 	// Editor Formatters & Linters.
-
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": false,
 	"editor.codeActionsOnSave": {
 		"source.addMissingImports": "explicit",
-		// "source.organizeImports": "explicit",
-		// "source.sortImports": "explicit",
-		// "source.fixAll": "explicit"
-		"source.formatDocument": "explicit",
-		"source.fixAll.eslint": "never",
+		"source.organizeImports": "never",
+		"source.fixAll.eslint": "explicit",
 		"source.fixAll.stylelint": "explicit"
 	},
 
@@ -63,93 +56,46 @@
 
 	// CSS
 	"css.validate": false,
-	"css.lint.unknownAtRules": "ignore",
-	"less.validate": false,
-	"scss.validate": false,
-
-	// Markdown
-	"markdown.validate.enabled": false,
-	"markdown.editor.pasteUrlAsFormattedLink.enabled": "smart",
-	"[markdown]": {
-		"editor.quickSuggestions": {
-			"comments": "on",
-			"strings": "on",
-			"other": "on"
-		}
-	},
 
 	// Must have extensions config
 
 	// Linters & Formatters
-	// True by default, change to false if you want to disable prettier
-	"prettier.enable": true,
-	"prettier.documentSelectors": ["**/*.blade.php"],
-
-	// True by default, change to false if you want to disable eslint
-	"eslint.enable": true,
-	"eslint.useESLintClass": true,
 	"eslint.workingDirectories": [{ "mode": "auto" }],
+	// Silent the stylistic rules in you IDE, but still auto fix them
+	"eslint.rules.customizations": [
+		{ "rule": "style/*", "severity": "off", "fixable": true },
+		{ "rule": "format/*", "severity": "off", "fixable": true },
+		{ "rule": "*-indent", "severity": "off", "fixable": true },
+		{ "rule": "*-spacing", "severity": "off", "fixable": true },
+		{ "rule": "*-spaces", "severity": "off", "fixable": true },
+		{ "rule": "*-order", "severity": "off", "fixable": true },
+		{ "rule": "*-dangle", "severity": "off", "fixable": true },
+		{ "rule": "*-newline", "severity": "off", "fixable": true },
+		{ "rule": "*quotes", "severity": "off", "fixable": true },
+		{ "rule": "*semi", "severity": "off", "fixable": true }
+	],
+	// Enable eslint for all supported languages
 	"eslint.validate": [
 		"javascript",
 		"javascriptreact",
 		"typescript",
 		"typescriptreact",
+		"vue",
+		"html",
+		"markdown",
 		"json",
 		"jsonc",
-		"json5",
 		"yaml",
-		"toml"
-	],
-
-	// True by default, change to false if you want to disable stylelint
-	// "stylelint.enable": true,
-
-	// Tailwind CSS
-	// Detect additional class regex
-	"tailwindCSS.experimental.classRegex": [
-		// https://regex-vis.com/?r=%5C%5Cs*class%3A%5C%5Cs*%3F%5B%60%27%5C%22%5D%28.*%29%5B%60%27%5C%22%5D%5C%5Cs*%28%3F%3D%5B%3B%2C.%5D%29
-		// Selection visualizer at https://www.debuggex.com/
-		"\\s*class:\\s*?[`'\"](.*)[`'\"]\\s*(?=[;,.])",
-		"\\s*=>\\s*?[`'\"](.*)[`'\"]\\s*(?=[;,.])",
-		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-		["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-		"tw`([^`]*)", // tw`...`
-		"tw=\"([^\"]*)", // <div tw="..." />
-		"tw={\"([^\"}]*)", // <div tw={"..."} />
-		"tw\\.\\w+`([^`]*)", // tw.xxx`...`
-		"tw\\(.*?\\)`([^`]*)", // tw(Component)`...`
-		// const fieldStyles = /*tw*/ {
-		//     default: {
-		//       label: 'py-2',
-		//       input: 'px-3 py-2 font-medium text-sm',
-		//   },
-		//   inline: {
-		//       label: 'py-2',
-		//       input: 'px-3 py-2 font-medium text-sm',
-		//   },
-		// };
-		["/\\* tw\\*/ ([^;]*);", "\"([^']*)\""],
-		"\\/\\*\\s?tw:\\s?\\*\\/\\s?'(.*)'",
-		// For javascript objects https://github.com/tailwindlabs/tailwindcss-intellisense/issues/270#issuecomment-785038799 in GridLayoutVerticals style.js
-		// https://regex101.com/r/dPgaxd/1
-		[":\\s{((?:.|\n)*?)},", ":\\s*[\"'`]([^'\"`]*)(?:(?:[\"'`],)|\\s\\$\\{)"],
-		// For pageLayoutStyles.js
-		["=\\s{((?:.|\n)*?)};", ":\\s*[\"'`]([^'\"`]*)(?:(?:[\"'`],)|\\s\\$\\{)"],
-		["\\$\\{([^}]*)\\}", "(?:['\"`]([^'\"`]*)['\"`])"],
-		// For twMerge
-		["twMerge\\((([^)]*)\\))", "[\"'`]([^\"'`]*).*?[\"'`]"],
-		"\\w+=\"([^\"]*)\""
-	],
-	// Enable features in languages that are not supported by default. Add a mapping here between the new language and an already supported language.
-	"tailwindCSS.includeLanguages": {
-		"plaintext": "html",
-		"typescript": "javascript",
-		"typescriptreact": "javascript",
-		"javascriptreact": "javascript"
-	}
-
-	// Optional supporting extensions config
-	// Error Translator for TypeScript
-	// "totalTypeScript.hideAllTips": true,
-	// "totalTypeScript.hideBasicTips": true,
+		"toml",
+		"xml",
+		"gql",
+		"graphql",
+		"astro",
+		"svelte",
+		"css",
+		"less",
+		"scss",
+		"pcss",
+		"postcss"
+	]
 }

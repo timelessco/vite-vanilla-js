@@ -1,61 +1,32 @@
-import angularParser from "@angular-eslint/template-parser";
-import js from "@eslint/js";
-import gitignore from "eslint-config-flat-gitignore";
-import eslintConfigPrettier from "eslint-config-prettier";
-import eslintPluginPromise from "eslint-plugin-promise";
-import eslintPluginTailwind from "eslint-plugin-tailwindcss";
-import eslintPluginUnicorn from "eslint-plugin-unicorn";
-import globals from "globals";
+import antfu from "@antfu/eslint-config";
 
-const FLAT_RECOMMENDED = "flat/recommended";
-
-const templateParser = {
-	meta: angularParser.meta,
-	parseForESLint: angularParser.parseForESLint,
-};
-
-export default [
-	gitignore(),
-	js.configs.recommended,
-	eslintConfigPrettier,
-	eslintPluginUnicorn.configs[FLAT_RECOMMENDED],
-	eslintPluginPromise.configs[FLAT_RECOMMENDED],
-	{
-		files: ["**/*.html"],
-		languageOptions: {
-			parser: templateParser,
-		},
-
-		plugins: {
-			tailwindcss: eslintPluginTailwind,
-		},
-
-		rules: {
-			...eslintPluginTailwind.configs[FLAT_RECOMMENDED][1].rules,
-		},
+export default antfu({
+	stylistic: {
+		indent: "tab",
+		quotes: "double",
+		semi: true,
 	},
-	{
-		ignores: ["**/package.json"],
-		languageOptions: {
-			globals: {
-				...globals.browser,
-			},
-
-			ecmaVersion: "latest",
-			sourceType: "module",
-		},
-
-		settings: {
-			"import/resolver": {
-				node: {
-					extensions: [".js"],
-					moduleDirectory: ["node_modules", "src/"],
-				},
-			},
-		},
-
-		plugins: {},
-
-		rules: {},
+	formatters: {
+		/**
+		 * Format CSS, LESS, SCSS files, also the `<style>` blocks in Vue
+		 * By default uses Prettier
+		 */
+		css: true,
+		/**
+		 * Format HTML files
+		 * By default uses Prettier
+		 */
+		html: true,
+		/**
+		 * Format Markdown files
+		 * Supports Prettier and dprint
+		 * By default uses Prettier
+		 */
+		markdown: "prettier",
 	},
-];
+}, {
+	files: ["src/**/*.{js,jsx,ts,tsx}"],
+	rules: {
+		"no-console": "off",
+	},
+});

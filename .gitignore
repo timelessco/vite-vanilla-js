@@ -2,212 +2,28 @@
 # OS X
 ############################
 
-.AppleDouble
-.LSOverride
-Icon
-.Spotlight-V100
-.Trashes
-._*
 .DS_Store
 ._.DS_Store
 **/.DS_Store
 **/._.DS_Store
-
-
-############################
-# Linux
-############################
-
-*~
-
-
-############################
-# Windows
-############################
-
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-*.cab
-*.msi
-*.msm
-*.msp
-
-
-############################
-# Packages
-############################
-
-*.7z
-# used by Polaris test suite reports
-# *.csv
-*.dat
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.seed
-*.so
-*.swo
-*.swp
-*.swn
-*.swm
-*.out
-*.pid
-*.seed
-*.pid.lock
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-
-# Output of 'npm pack'
-*.tgz
-
-
-############################
-# Logs and databases
-############################
-
-.tmp
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-.pnpm-debug.log*
-*.sql
-*.sqlite
-*.sqlite3
-
-
-############################
-# Misc.
-############################
-
-*#
-ssl
-nbproject
-public/uploads/*
-!public/uploads/.gitkeep
-
 
 ############################
 # Environment Variables
 ############################
 
 .env
-.env.development
-.env.production
 .env.local
+.env.development
 .env.development.local
+.env.production
 .env.production.local
 .env.test.local
-
 
 ############################
 # Node.js
 ############################
 
-lib-cov
-lcov.info
-pids
-results
-.node_history
 node_modules
-/.pnp
-.pnp.js
-
-# Diagnostic reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-
-# Optional REPL history
-.node_repl_history
-
-# node-waf configuration
-.lock-wscript
-
-# Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
-
-# Optional npm cache directory
-.npm
-.pnpm-store
-
-
-############################
-# Builders
-############################
-
-# Webpack compiled js for react
-public/**/app.js
-
-# vite
-public/build
-public/hot
-
-# Compiled JS
-public/**/js/*.js
-
-# CSS
-public/css/*.css
-
-# CSS audit files
-/**/*.needed.css
-
-
-# Mix manifest
-public/mix-manifest.json
-
-
-############################
-# Tests
-############################
-
-testApp
-
-# Coverage directory used by tools like istanbul
-coverage
-*.lcov
-
-# nyc test coverage
-.nyc_output
-
-# Cypress artifacts generated from testing runs
-cypress/videos
-cypress/screenshots
-cypress/reports
-
-# Playwright
-/playwright-report
-/playwright/.cache/
-/playwright-report
-
-/test-results/
-
-
-############################
-# Extras
-############################
-
-# Sentry
-.sentryclirc
-
-# Storybook Build
-storybook-build
-
-# TypeScript cache
-*.tsbuildinfo
-
 
 ############################
 # Locals
@@ -218,18 +34,16 @@ storybook-build
 !.vscode/extensions.json
 !.vscode/settings.json
 
-# Optional prettier cache
-.prettiercache
-
-# Optional eslint cache
+# Eslint cache
 .eslintcache
 
-# Optional stylelint cache
+# Stylelint cache
 .stylelintcache
 
-# Optional cspell cache
+# Cspell cache
 .cspellcache
 
-# production
+# Extras(if any)
 /dist
-/dist-ssr
+release-it/remote-commits.json
+

@@ -1,7 +1,6 @@
 {
 	"recommendations": [
 		// General extensions
-		"esbenp.prettier-vscode",
 		"dbaeumer.vscode-eslint",
 		"stylelint.vscode-stylelint",
 		"bradlc.vscode-tailwindcss",

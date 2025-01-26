@@ -1,0 +1,45 @@
+{
+	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+	"version": "0.2",
+	"language": "en",
+	"allowCompoundWords": true,
+	"dictionaries": [
+		"bash",
+		"node",
+		"html",
+		"css",
+		"typescript",
+		"fonts",
+		"filetypes",
+		"npm",
+		"softwareTerms",
+		"misc",
+		"project-words"
+	],
+	"ignorePaths": [
+		".git",
+		".husky",
+		".vscode",
+		"public",
+		"CHANGELOG.md",
+		"pnpm-lock.yaml",
+		"project-words.txt"
+	],
+	"words": [
+		"",
+		"amannn",
+		"dprint",
+		"Elems",
+		"fbca",
+		"ianvs",
+		"infile",
+		"kodiakhq",
+		"Kolkata",
+		"micnncim",
+		"Navin",
+		"navin",
+		"syncer",
+		"timelessco",
+		"unenc"
+	]
+}
