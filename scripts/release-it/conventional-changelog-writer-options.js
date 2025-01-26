@@ -3,8 +3,17 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getGithubCommits } from "./get-commits-since-last-release.js";
 
-const remoteCommits = await getGithubCommits();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+let remoteCommits = [];
+
+// Cache for remote commits to avoid multiple API calls
+async function getRemoteCommits() {
+	if (remoteCommits.length === 0) {
+		remoteCommits = await getGithubCommits();
+	}
+
+	return remoteCommits;
+}
 
 const owner
 	= "{{#if this.owner}}{{~this.owner}}{{else}}{{~@root.owner}}{{/if}}";
@@ -151,7 +160,7 @@ function addOtherNotableChanges(commit, context) {
 	}
 }
 
-export function transform(commit, context) {
+export async function transform(commit, context) {
 	// Remove commit body if it's author is a bot
 	if (commit.authorName === "renovate[bot]") {
 		commit.body = "";
@@ -249,7 +258,9 @@ export function transform(commit, context) {
 		return false;
 	});
 
-	const matchedRemoteCommit = remoteCommits.find((remoteCommit) => {
+	// Get remote commits at the start of transform
+	const commits = await getRemoteCommits();
+	const matchedRemoteCommit = commits.find((remoteCommit) => {
 		return remoteCommit.shortHash === commit.shortHash;
 	});
 

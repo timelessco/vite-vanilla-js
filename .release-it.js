@@ -12,7 +12,6 @@ export default {
 	},
 	git: {
 		requireBranch: "main",
-		// requireCleanWorkingDir: false,
 		requireCommits: true,
 		// eslint-disable-next-line no-template-curly-in-string
 		commitMessage: "🚀 Release v${version}",
@@ -23,13 +22,9 @@ export default {
 		// eslint-disable-next-line no-template-curly-in-string
 		releaseName: "Release v${version}",
 		release: true,
-		comments: {
-			submit: true,
-		},
+		comments: { submit: true },
 	},
-	npm: {
-		publish: false,
-	},
+	npm: { publish: false },
 	plugins: {
 		"@release-it/conventional-changelog": {
 			preset: { name: "conventionalcommits" },
