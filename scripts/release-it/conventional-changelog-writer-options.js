@@ -106,35 +106,40 @@ function getTitleCasedScope(commit) {
 	return scope ?? undefined;
 }
 
-function addBangNotes(commit, context) {
+export async function transform(commit, context) {
+	const patch = {};
+	const issues = [];
+
+	// Set new values in patch instead of modifying commit
+	if (commit.authorName === "renovate[bot]") {
+		patch.body = "";
+	}
+
+	const entry = findTypeEntry(types, commit);
+	if (entry) {
+		patch.type = entry.section;
+	}
+
+	// Handle breaking changes
 	const breakingHeaderPatternRegex = /^\w*(?:\(.*\))?!: (.*)$/u;
 	const match = breakingHeaderPatternRegex.exec(commit.header);
-
 	if (match) {
-		// the description of the change.
-		const noteText = match[1];
-
-		commit.notes.push({
+		patch.notes = [{
 			title: "🧨 BREAKING CHANGE",
 			text: undefined,
 			scope: getTitleCasedScope(commit),
 			body: commit?.body,
 			subject: commit?.subject,
-			header: noteText,
+			header: match[1],
 			shortHash: commit.shortHash,
 			hashUrl: generateCommitUrl(context, commit.hash),
-		});
-
-		// Remove the commit to the notable changes as it will be added as breaking change
-		commit.body = undefined;
+		}];
+		patch.body = undefined;
 	}
-}
 
-function addNotableChanges(commit, context) {
-	const pattern = /^(?:feat|fix)\(.+:\s.*$/u;
-	const match = pattern.exec(commit.header);
-
-	if (match && commit?.body) {
+	// Handle notable changes
+	if (/^(?:feat|fix)\(.+:\s.*$/u.test(commit.header) && commit?.body) {
+		context.notableChanges = context.notableChanges || [];
 		context.notableChanges.push({
 			scope: getTitleCasedScope(commit),
 			body: commit.body,
@@ -143,13 +148,10 @@ function addNotableChanges(commit, context) {
 			hashUrl: generateCommitUrl(context, commit.hash),
 		});
 	}
-}
 
-function addOtherNotableChanges(commit, context) {
-	const pattern = /^(?:refactor|perf|docs)\(.+:\s.*$/u;
-	const match = pattern.exec(commit.header);
-
-	if (match && commit?.body) {
+	// Handle other notable changes
+	if (/^(?:refactor|perf|docs)\(.+:\s.*$/u.test(commit.header) && commit?.body) {
+		context.otherNotableChanges = context.otherNotableChanges || [];
 		context.otherNotableChanges.push({
 			scope: getTitleCasedScope(commit),
 			body: commit.body,
@@ -158,81 +160,42 @@ function addOtherNotableChanges(commit, context) {
 			hashUrl: generateCommitUrl(context, commit.hash),
 		});
 	}
-}
 
-export async function transform(commit, context) {
-	// Remove commit body if it's author is a bot
-	if (commit.authorName === "renovate[bot]") {
-		commit.body = "";
-	}
-
-	const issues = [];
-	const entry = findTypeEntry(types, commit);
-
-	// adds additional breaking change notes
-	// for the special case, test(system)!: hello world, where there is
-	// a '!' but no 'BREAKING CHANGE' in body:
-	addBangNotes(commit, context);
-
-	commit.notes = commit.notes.filter((note) => {
-		return note.text === null;
-	});
-
-	context.hasNotableChanges = true;
+	// Update context flags
+	context.hasNotableChanges = (context.notableChanges || []).length > 0;
+	context.hasOtherNotableChanges = (context.otherNotableChanges || []).length > 0;
 	context.notableChangesTitle = "👀 Notable Changes";
-	context.notableChanges = context.notableChanges || [];
-
-	addNotableChanges(commit, context);
-
-	if (context.notableChanges.length === 0) {
-		context.hasNotableChanges = false;
-	}
-
-	context.hasOtherNotableChanges = true;
 	context.otherNotableChangesTitle = "📌 Other Notable Changes";
-	context.otherNotableChanges = context.otherNotableChanges || [];
-
-	addOtherNotableChanges(commit, context);
-
-	if (context.otherNotableChanges.length === 0) {
-		context.hasOtherNotableChanges = false;
-	}
-
-	if (entry)
-		commit.type = entry.section;
 
 	if (commit.scope === "*") {
-		commit.scope = "";
+		patch.scope = "";
 	}
 
 	if (typeof commit.hash === "string") {
-		commit.shortHash = commit.hash.slice(0, 7);
+		patch.shortHash = commit.hash.slice(0, 7);
 	}
 
+	// Handle issue links
 	if (typeof commit.subject === "string") {
 		// Issue URLs.
 		const issueRegEx = `(${issuePrefixes.join("|")})(\\d+)`;
 		const re = new RegExp(issueRegEx, "gu");
 
-		commit.subject = commit.subject.replace(re, (_, prefix, issue) => {
+		patch.subject = commit.subject.replace(re, (_, prefix, issue) => {
 			issues.push(prefix + issue);
 
-			const url = expandTemplate(
-				"{{host}}/{{owner}}/{{repository}}/issues/{{id}}",
-				{
-					host: context.host,
-					owner: context.owner,
-					repository: context.repository,
-					id: issue,
-				},
-			);
+			const url = expandTemplate("{{host}}/{{owner}}/{{repository}}/issues/{{id}}", {
+				host: context.host,
+				owner: context.owner,
+				repository: context.repository,
+				id: issue,
+			});
 
 			return `[${prefix}${issue}](${url})`;
 		});
 
-		// User URLs.
-
-		commit.subject = commit.subject.replace(
+		// Handle user links
+		patch.subject = patch.subject.replace(
 			/\B@([a-z\d](?:-?[a-z\d/]){0,38})/gu,
 			(_, user) => {
 				if (user.includes("/")) {
@@ -249,26 +212,21 @@ export async function transform(commit, context) {
 		);
 	}
 
-	// remove references that already appear in the subject
-	commit.references = commit.references.filter((reference) => {
-		if (!issues.includes(reference.prefix + reference.issue)) {
-			return true;
-		}
+	// Remove references that already appear in the subject
+	patch.references = commit.references.filter(reference =>
+		!issues.includes(reference.prefix + reference.issue),
+	);
 
-		return false;
-	});
-
-	// Get remote commits at the start of transform
+	// Add GitHub user info
 	const commits = await getRemoteCommits();
-	const matchedRemoteCommit = commits.find((remoteCommit) => {
-		return remoteCommit.shortHash === commit.shortHash;
-	});
-
+	const matchedRemoteCommit = commits.find(
+		remoteCommit => remoteCommit.shortHash === commit.shortHash,
+	);
 	if (matchedRemoteCommit?.login) {
-		commit.userLogin = matchedRemoteCommit.login;
+		patch.userLogin = matchedRemoteCommit.login;
 	}
 
-	return commit;
+	return patch;
 }
 
 export const mainTemplate = readFileSync(

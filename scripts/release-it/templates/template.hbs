@@ -49,24 +49,9 @@ Introduced in: [`{{shortHash}}`]({{hashUrl}})
 
 {{/if}}
 
-### 🗃️ Commits
-
-{{#each commitGroups}}
-
-{{#if title}}
-#### {{title}}
-{{/if}}
-
-{{#each commits}}
-{{> commit root=@root}}
-{{/each}}
-
-{{/each}}
-
 {{~#if hasOtherNotableChanges}}
 
 ### {{otherNotableChangesTitle}}
-
 
 {{#each otherNotableChanges}}
 
@@ -85,3 +70,17 @@ Introduced in: [`{{shortHash}}`]({{hashUrl}})
 {{/each}}
 
 {{/if}}
+
+### 🗃️ Commits
+
+{{#each commitGroups}}
+
+{{#if title}}
+#### {{title}}
+{{/if}}
+
+{{#each commits}}
+{{> commit root=@root}}
+{{/each}}
+
+{{/each}}
