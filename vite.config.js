@@ -1,10 +1,12 @@
 import path from "node:path";
 
+import tailwindcss from "@tailwindcss/vite";
 import legacy from "@vitejs/plugin-legacy";
 import { ViteMinifyPlugin } from "vite-plugin-minify";
 
 export default {
 	plugins: [
+		tailwindcss(),
 		// https://github.com/vitejs/vite/tree/main/packages/plugin-legacy
 		legacy(),
 		// https://github.com/zhuweiyou/vite-plugin-minify

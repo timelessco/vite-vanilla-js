@@ -19,6 +19,7 @@ export default {
 			"^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+){0,2}$|^__[a-z]([a-z0-9-]+)$",
 
 		// For Tailwind CSS
+		"import-notation": "string",
 		"at-rule-no-unknown": [
 			true,
 			{
@@ -31,6 +32,7 @@ export default {
 					"variants",
 					"responsive",
 					"screen",
+					"theme",
 				],
 			},
 		],
