@@ -3,6 +3,7 @@
 		// General extensions
 		"dbaeumer.vscode-eslint",
 		"stylelint.vscode-stylelint",
+		"streetsidesoftware.code-spell-checker",
 		"bradlc.vscode-tailwindcss",
 
 		// Quality of life extensions
