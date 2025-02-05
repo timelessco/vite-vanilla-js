@@ -3,7 +3,7 @@ jobs:
     name: Lint ESLint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: ./.github/actions/pnpm-install
       - run: pnpm lint:eslint
 
@@ -11,7 +11,7 @@ jobs:
     name: Lint CSS
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: ./.github/actions/pnpm-install
       - run: pnpm lint:css
 
@@ -19,7 +19,7 @@ jobs:
     name: Lint Knip
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: ./.github/actions/pnpm-install
       - run: pnpm lint:knip
 
@@ -27,7 +27,7 @@ jobs:
     name: Lint Spelling
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: ./.github/actions/pnpm-install
       - run: pnpm lint:spelling
 
@@ -35,7 +35,7 @@ jobs:
     name: Find Duplicated Packages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: ./.github/actions/pnpm-install
       - run: pnpm dedupe:packages
 
