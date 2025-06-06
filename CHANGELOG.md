@@ -1,5 +1,40 @@
 # Changelog
 
+## 2.0.0 (2025-06-06)
+
+### 🧨 BREAKING CHANGE
+
+
+#### `tooling`- updated to latest standards followed in other repos 
+
+- Added .editorconfig for consistent coding styles.
+- Created .env.example for environment variable setup.
+- Introduced .gitattributes to manage line endings and file types.
+- Added .markdownlint-cli2.jsonc for markdown linting configuration.
+- Created .npmrc for PNPM settings.
+- Added .prettierignore to specify files to ignore for Prettier.
+- Updated cspell.json with new terms.
+- Modified package.json to include additional built dependencies.
+- Added prettier.config.cjs for Prettier configuration.
+- Introduced turbo.json for task management.
+- Created .github/labels.yml for issue labeling.
+- Added workflows for cleaning up PR caches and syncing labels.
+- Introduced commit-msg hook for commit message linting.
+
+
+Introduced in: [`4f71fb5`](https://github.com/timelessco/vite-vanilla-js/commit/4f71fb51cb0dc340aa2fa71b9b9a42386cc31ddd)
+
+
+
+
+
+### 🗃️ Commits
+
+
+#### ⭐ New Features
+
+- **`tooling:`** updated to latest standards followed in other repos - [4f71fb5](https://github.com/timelessco/vite-vanilla-js/commit/4f71fb51cb0dc340aa2fa71b9b9a42386cc31ddd) by @navin-moorthy
+
 ## <small>1.0.1 (2025-06-06)</small>
 
 ### 🗃️ Commits
