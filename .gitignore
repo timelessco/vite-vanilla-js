@@ -12,18 +12,48 @@
 ############################
 
 .env
-.env.local
-.env.development
-.env.development.local
-.env.production
-.env.production.local
-.env.test.local
 
 ############################
-# Node.js
+# Package Manager
 ############################
 
+# PNPM
 node_modules
+
+############################
+# Builders
+############################
+
+# Turbo Repo
+.turbo
+
+############################
+# Next.js
+############################
+
+.next
+
+# Next PWA
+public/sw*
+public/swe-worker*
+public/workbox-*
+public/fallback-*
+
+# Next Sitemap
+public/robots.txt
+public/sitemap.xml
+public/sitemap-0.xml
+
+############################
+# Extras
+############################
+
+# Sentry
+.sentryclirc
+.env.sentry-build-plugin
+
+# TypeScript cache
+*.tsbuildinfo
 
 ############################
 # Locals
@@ -33,6 +63,9 @@ node_modules
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+
+# Prettier cache
+.prettiercache
 
 # Eslint cache
 .eslintcache
@@ -45,5 +78,3 @@ node_modules
 
 # Extras(if any)
 /dist
-release-it/remote-commits.json
-

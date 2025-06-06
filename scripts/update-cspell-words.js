@@ -1,35 +1,43 @@
-#!/usr/bin/env node
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
 import { $ } from "execa";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Run cspell command and get output
-const { stdout } = await $({
-	reject: false,
-})`cspell --words-only --unique --gitignore --cache --dot **/*`;
+async function readCspellConfig(filePath) {
+	return JSON.parse(await fs.readFile(filePath, "utf8"));
+}
 
-const newWords = stdout
-	.trim()
-	.split("\n")
-	.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+async function writeCspellConfig(filePath, config) {
+	await fs.writeFile(filePath, `${JSON.stringify(config, undefined, "\t")}\n`);
+}
 
-// Read existing cspell.json
-const cspellPath = path.join(__dirname, "..", "cspell.json");
-const cspellContent = JSON.parse(await fs.readFile(cspellPath, "utf8"));
+async function updateWordsInConfig(filePath, words) {
+	const config = await readCspellConfig(filePath);
+	config.words = words;
+	await writeCspellConfig(filePath, config);
+}
 
-// Merge existing and new words, remove duplicates
-const allWords = [...new Set([...(cspellContent.words || []), ...newWords])].sort(
-	(a, b) => a.toLowerCase().localeCompare(b.toLowerCase()),
-);
+async function updateCspellWords() {
+	const cspellPath = path.join(__dirname, "..", "cspell.json");
 
-// Update cspell.json
-cspellContent.words = allWords;
+	// Clear existing words
+	await updateWordsInConfig(cspellPath, []);
 
-// Write back with pretty formatting
-await fs.writeFile(
-	cspellPath,
-	`${JSON.stringify(cspellContent, undefined, "\t")}\n`,
-);
+	// Run cspell command and get output
+	const { stdout } = await $({
+		reject: false,
+	})`cspell --words-only --unique --gitignore --cache --dot **/*`;
+
+	const newWords = stdout
+		.trim()
+		.split("\n")
+		.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+
+	// Update with new words
+	await updateWordsInConfig(cspellPath, newWords);
+}
+
+await updateCspellWords();

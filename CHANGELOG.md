@@ -1,5 +1,35 @@
 # Changelog
 
+## <small>1.0.1 (2025-06-06)</small>
+
+### 🗃️ Commits
+
+
+#### 🛠️ Build Updates
+
+- **`deps:`** 🛠️ update TailwindCSS to v4 - [013836a](https://github.com/timelessco/vite-vanilla-js/commit/013836a5cf3d54af175dfbb6683c1c68c5bb94ff) by @navin-moorthy
+
+
+
+#### 🔨 Maintenance Updates
+
+- **`deps:`** 🧹 update dependencies and VSCode settings - [ac26a4a](https://github.com/timelessco/vite-vanilla-js/commit/ac26a4ac6708ba1251188ef4d344755d2c24bd39) by @navin-moorthy
+
+- **`deps:`** update all dependencies - [09aad5a](https://github.com/timelessco/vite-vanilla-js/commit/09aad5a631b2a92d20409a6ffbae4c0e9bf63f5d) by @renovate[bot]
+
+- **`deps:`** update all dependencies - [ab2d97b](https://github.com/timelessco/vite-vanilla-js/commit/ab2d97bd0cd9b81b8d9799f6c3d58e1db6a8a528) by @renovate[bot]
+
+- **`deps:`** update all dependencies - [69fb74e](https://github.com/timelessco/vite-vanilla-js/commit/69fb74e5d947fca4e88c8e77f377a82dd53fce42) by @renovate[bot]
+
+- **`deps:`** update all dependencies ([#6](https://github.com/timelessco/vite-vanilla-js/issues/6)) - [ec72b07](https://github.com/timelessco/vite-vanilla-js/commit/ec72b07faf0a992eaa6b1c31f72a0451271cf219) by @renovate[bot]
+
+- **`deps:`** update all dependencies ([#7](https://github.com/timelessco/vite-vanilla-js/issues/7)) - [d0c533e](https://github.com/timelessco/vite-vanilla-js/commit/d0c533ee29f783fbe51ddc79b8c00cd18ab38f89) by @renovate[bot]
+
+
+
+
+- 🚀 chore(release-it): update release commit message with emoji - [49717b0](https://github.com/timelessco/vite-vanilla-js/commit/49717b02360045a10fcbbb09b42946ad9ecf386f)
+
 ## [1.0.0](https://github.com/timelessco/vite-vanilla-js/compare/0.0.0...1.0.0) (2025-01-26)
 
 

@@ -1,5 +1,5 @@
-#!/usr/bin/env node
 import { parseArgs } from "node:util";
+
 import { select } from "@inquirer/prompts";
 import { $ } from "execa";
 
@@ -8,45 +8,41 @@ const NODE_MODULES = "node_modules";
 
 const options = [
 	{
+		description: "Removes ./dist directory",
 		name: `${DIST} - Remove dist directory`,
 		value: DIST,
-		description: "Removes ./dist directory",
 	},
 	{
+		description: "Removes all node_modules directories",
 		name: `${NODE_MODULES} - Remove all node_modules`,
 		value: NODE_MODULES,
-		description: "Removes all node_modules directories",
 	},
 	{
+		description: "Runs all clean commands",
 		name: "all - Clean everything",
 		value: "all",
-		description: "Runs all clean commands",
 	},
 ];
 
 const args = parseArgs({
-	options: {
-		"all": { type: "boolean", short: "a" },
-		"dist": { type: "boolean", short: "d" },
-		"node-modules": { type: "boolean", short: "n" },
-	},
 	allowPositionals: false,
+	options: {
+		all: { short: "a", type: "boolean" },
+		dist: { short: "d", type: "boolean" },
+		"node-modules": { short: "n", type: "boolean" },
+	},
 }).values;
 
 // Run with args if provided, otherwise show prompt
 let value;
 if (Object.keys(args).length > 0) {
-	if (args.all)
-		value = "all";
-	else if (args.dist)
-		value = DIST;
-	else if (args["node-modules"])
-		value = NODE_MODULES;
-}
-else {
+	if (args.all) value = "all";
+	else if (args.dist) value = DIST;
+	else if (args["node-modules"]) value = NODE_MODULES;
+} else {
 	value = await select({
-		message: "Select what to clean",
 		choices: options,
+		message: "Select what to clean",
 	});
 }
 
@@ -54,10 +50,7 @@ const $$ = $({ stdio: "inherit" });
 
 switch (value) {
 	case "all": {
-		await Promise.all([
-			$$`rimraf ./dist`,
-			$$`rimraf --glob **/node_modules`,
-		]);
+		await Promise.all([$$`rimraf ./dist`, $$`rimraf --glob **/node_modules`]);
 		console.log("✓ Cleaned dist and node_modules");
 		break;
 	}

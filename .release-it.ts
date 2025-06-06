@@ -1,17 +1,18 @@
+import type { Config } from "release-it";
+
 import {
 	commitGroupsSort,
 	commitPartial,
 	mainTemplate,
 	transform,
 } from "./scripts/release-it/conventional-changelog-writer-options.js";
-import type { Config } from 'release-it';
 
 export default {
 	hooks: { "before:init": ["pnpm lint"] },
 	git: {
 		requireBranch: "main",
 		requireCommits: true,
-		// requireCleanWorkingDir: false,
+		requireCleanWorkingDir: false,
 		commitMessage: "🚀 Release v${version}",
 		commitArgs: ["--no-verify", "-S"],
 		tagArgs: ["-s"],

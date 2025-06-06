@@ -1,49 +1,89 @@
 jobs:
-  lint-eslint:
-    name: Lint ESLint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - uses: ./.github/actions/pnpm-install
-      - run: pnpm lint:eslint
-
-  lint-css:
-    name: Lint CSS
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - uses: ./.github/actions/pnpm-install
-      - run: pnpm lint:css
-
-  lint-knip:
-    name: Lint Knip
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - uses: ./.github/actions/pnpm-install
-      - run: pnpm lint:knip
-
-  lint-spelling:
-    name: Lint Spelling
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - uses: ./.github/actions/pnpm-install
-      - run: pnpm lint:spelling
-
   find_duplicated_packages:
     name: Find Duplicated Packages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: ./.github/actions/pnpm-install
-      - run: pnpm dedupe:packages
+      - run: pnpm turbo check:packages
+    timeout-minutes: 15
+
+  lint-css:
+    env:
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+    name: 🔬 Lint CSS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: ./.github/actions/pnpm-install
+      - run: pnpm turbo lint:css
+    timeout-minutes: 15
+
+  lint-eslint:
+    env:
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+    name: 🔬 Lint ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: ./.github/actions/pnpm-install
+      - run: pnpm turbo lint:eslint
+    timeout-minutes: 15
+
+  lint-knip:
+    env:
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+    name: 🔬 Lint Knip
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: ./.github/actions/pnpm-install
+      - run: pnpm turbo lint:knip
+    timeout-minutes: 15
+
+  lint-md:
+    env:
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+    name: 🔬 Lint MD
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: ./.github/actions/pnpm-install
+      - run: pnpm turbo lint:md
+    timeout-minutes: 15
+
+  lint-prettier:
+    env:
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+    name: 🔬 Lint Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: ./.github/actions/pnpm-install
+      - run: pnpm turbo lint:prettier
+    timeout-minutes: 15
+
+  lint-spelling:
+    env:
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+    name: 🔬 Lint Spelling
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: ./.github/actions/pnpm-install
+      - run: pnpm turbo lint:spelling
+    timeout-minutes: 15
 
 name: CI
 
 on:
   pull_request: ~
-
   push:
     branches:
       - main

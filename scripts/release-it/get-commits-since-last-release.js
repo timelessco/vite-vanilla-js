@@ -4,6 +4,7 @@
 // - https://github.com/lerna-lite/lerna-lite/blob/main/packages/version/src/git-clients/github-client.ts
 
 import process from "node:process";
+
 import { Octokit } from "@octokit/core";
 import { config } from "dotenv";
 import { execa } from "execa";
@@ -39,7 +40,7 @@ export async function getOldestCommitSinceLastTag() {
 		const gitCommandArguments = [
 			"log",
 			latestTag ? `${latestTag}..HEAD` : "HEAD",
-			"--format=\"%h %aI\"",
+			'--format="%h %aI"',
 			"--reverse",
 		];
 
@@ -54,22 +55,21 @@ export async function getOldestCommitSinceLastTag() {
 				latestTag,
 			]).catch(() => ({ stdout: "" }));
 			if (tagOutput.stdout) {
-				const [, commitHash, commitDate]
-					= /^"?([\da-f]+)\s([\d+:T\\|-]*)"?$/u.exec(tagOutput.stdout) || [];
-				return { commitHash, commitDate, commits: [tagOutput.stdout] };
+				const [, commitHash, commitDate] =
+					/^"?([\da-f]+)\s([\d+:T\\|-]*)"?$/u.exec(tagOutput.stdout) || [];
+				return { commitDate, commitHash, commits: [tagOutput.stdout] };
 			}
-			return { commitHash: "", commitDate: "", commits: [] };
+			return { commitDate: "", commitHash: "", commits: [] };
 		}
 
 		const [commitResult] = stdout.split("\n");
-		const [, commitHash, commitDate]
-			= /^"?([\da-f]+)\s([\d+:T\\|-]*)"?$/u.exec(commitResult) || [];
+		const [, commitHash, commitDate] =
+			/^"?([\da-f]+)\s([\d+:T\\|-]*)"?$/u.exec(commitResult) || [];
 
-		return { commitHash, commitDate, commits: stdout.split("\n") };
-	}
-	catch (error) {
+		return { commitDate, commitHash, commits: stdout.split("\n") };
+	} catch (error) {
 		console.error("Error getting commits:", error);
-		return { commitHash: "", commitDate: "", commits: [] };
+		return { commitDate: "", commitHash: "", commits: [] };
 	}
 }
 
@@ -78,7 +78,9 @@ export async function getGithubCommits() {
 	const { commitDate } = await getOldestCommitSinceLastTag();
 
 	if (!commitDate) {
-		throw new Error("Invalid \"since\" date - required to fetch GitHub commits since last release");
+		throw new Error(
+			'Invalid "since" date - required to fetch GitHub commits since last release',
+		);
 	}
 
 	const repo = gitUrlParse(originUrl);
@@ -95,11 +97,11 @@ export async function getGithubCommits() {
 		const queryString = getQueryString(afterCursorString);
 
 		const response = await octokit.graphql(queryString, {
-			owner: repo.owner,
-			repo: repo.name,
 			afterCursor,
 			branchName: "main",
+			owner: repo.owner,
 			pageSize: QUERY_PAGE_SIZE,
+			repo: repo.name,
 			since: commitDate,
 		});
 
@@ -118,8 +120,8 @@ export async function getGithubCommits() {
 			for (const commit of historyData.nodes) {
 				if (commit?.oid && commit?.author) {
 					remoteCommits.push({
-						shortHash: commit.oid.slice(0, 7),
 						login: commit?.author?.user?.login ?? "",
+						shortHash: commit.oid.slice(0, 7),
 					});
 				}
 			}

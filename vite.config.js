@@ -5,13 +5,6 @@ import legacy from "@vitejs/plugin-legacy";
 import { ViteMinifyPlugin } from "vite-plugin-minify";
 
 export default {
-	plugins: [
-		tailwindcss(),
-		// https://github.com/vitejs/vite/tree/main/packages/plugin-legacy
-		legacy(),
-		// https://github.com/zhuweiyou/vite-plugin-minify
-		ViteMinifyPlugin(),
-	],
 	build: {
 		rollupOptions: {
 			// https://vite.dev/guide/build.html#multi-page-app
@@ -20,4 +13,11 @@ export default {
 			},
 		},
 	},
+	plugins: [
+		tailwindcss(),
+		// https://github.com/vitejs/vite/tree/main/packages/plugin-legacy
+		legacy(),
+		// https://github.com/zhuweiyou/vite-plugin-minify
+		ViteMinifyPlugin(),
+	],
 };

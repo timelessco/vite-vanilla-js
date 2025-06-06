@@ -16,30 +16,34 @@
 		"misc",
 		"project-words"
 	],
+	"useGitignore": true,
 	"ignorePaths": [
 		".git",
 		".husky",
 		".vscode",
 		"public",
 		"CHANGELOG.md",
-		"pnpm-lock.yaml",
-		"project-words.txt"
+		"pnpm-lock.yaml"
 	],
 	"words": [
-		"",
 		"amannn",
-		"dprint",
-		"Elems",
 		"fbca",
+		"gifv",
+		"haml",
 		"ianvs",
 		"infile",
-		"kodiakhq",
-		"Kolkata",
+		"ipynb",
+		"mdtxt",
+		"mdwn",
 		"micnncim",
-		"Navin",
+		"mkdn",
 		"navin",
+		"Navin",
+		"sentryclirc",
+		"styl",
+		"svgz",
 		"syncer",
 		"timelessco",
-		"unenc"
+		"wbmp"
 	]
 }

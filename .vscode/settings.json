@@ -1,101 +1,55 @@
 {
 	// Quality of life improvements
 	// Git
-	"git.branchProtection": ["uat"],
-	"githubPullRequests.ignoredPullRequestBranches": ["uat"],
-
-	// File Associations
-	"files.associations": {
-		"package.json": "json",
-		"*.svg": "html",
-		".env.*": "dotenv",
-		"*.json": "jsonc",
-		".*ignore": "ignore",
-		"monorepo.code-workspace": "jsonc",
-		"*.tsx": "typescriptreact",
-		"*.jsx": "javascriptreact"
-	},
-
-	// File Exclusions
-	"files.exclude": {
-		"USE_GITIGNORE": true
-	},
-
-	// Search Exclusions
-	"search.useIgnoreFiles": true,
-	"search.useParentIgnoreFiles": true,
-	"search.exclude": {
-		// Default
-		"**/node_modules": true,
-		"**/bower_components": true,
-		"**/*.code-search": true,
-		// Custom
-		"**/pnpm-lock.yaml": true
-	},
+	"git.branchProtection": ["main"],
+	"githubPullRequests.ignoredPullRequestBranches": ["main"],
+	"typescript.tsdk": "node_modules/typescript/lib",
 
 	// Editor Formatters & Linters.
-	"editor.formatOnSave": false,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
 		"source.addMissingImports": "explicit",
-		"source.organizeImports": "never",
+		"source.formatDocument": "explicit",
 		"source.fixAll.eslint": "explicit",
-		"source.fixAll.stylelint": "explicit"
+		"source.fixAll.stylelint": "explicit",
+		"source.fixAll.markdownlint": "explicit"
 	},
 
 	// Language based settings
 
-	// JavaScript
-	"javascript.updateImportsOnFileMove.enabled": "always",
-	"javascript.referencesCodeLens.enabled": true,
-	"javascript.referencesCodeLens.showOnAllFunctions": true,
-
-	// TypeScript
-	"typescript.updateImportsOnFileMove.enabled": "always",
-	"typescript.validate.enable": true,
-	"typescript.surveys.enabled": false,
-
 	// CSS
 	"css.validate": false,
+	"css.lint.unknownAtRules": "ignore",
 
 	// Must have extensions config
 
 	// Linters & Formatters
-	"eslint.workingDirectories": [{ "mode": "auto" }],
-	// Silent the stylistic rules in you IDE, but still auto fix them
-	"eslint.rules.customizations": [
-		{ "rule": "style/*", "severity": "off", "fixable": true },
-		{ "rule": "format/*", "severity": "off", "fixable": true },
-		{ "rule": "*-indent", "severity": "off", "fixable": true },
-		{ "rule": "*-spacing", "severity": "off", "fixable": true },
-		{ "rule": "*-spaces", "severity": "off", "fixable": true },
-		{ "rule": "*-order", "severity": "off", "fixable": true },
-		{ "rule": "*-dangle", "severity": "off", "fixable": true },
-		{ "rule": "*-newline", "severity": "off", "fixable": true },
-		{ "rule": "*quotes", "severity": "off", "fixable": true },
-		{ "rule": "*semi", "severity": "off", "fixable": true }
-	],
-	// Enable eslint for all supported languages
 	"eslint.validate": [
 		"javascript",
 		"javascriptreact",
 		"typescript",
 		"typescriptreact",
-		"vue",
-		"html",
-		"markdown",
 		"json",
 		"jsonc",
+		"json5",
 		"yaml",
-		"toml",
-		"xml",
-		"gql",
-		"graphql",
-		"astro",
-		"svelte",
-		"css",
-		"less",
-		"scss",
-		"pcss",
-		"postcss"
-	]
+		"yml"
+	],
+
+	// Tailwind CSS
+	// Detect additional class regex
+	"tailwindCSS.experimental.classRegex": [
+		// https://regex-vis.com/?r=%5C%5Cs*class%3A%5C%5Cs*%3F%5B%60%27%5C%22%5D%28.*%29%5B%60%27%5C%22%5D%5C%5Cs*%28%3F%3D%5B%3B%2C.%5D%29
+		// Selection visualizer at https://www.debuggex.com/
+		"\\s*class:\\s*?[`'\"](.*)[`'\"]\\s*(?=[;,.])",
+		["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+	],
+	// Enable features in languages that are not supported by default. Add a mapping here between the new language and an already supported language.
+	"tailwindCSS.includeLanguages": {
+		"plaintext": "html",
+		"typescript": "javascript",
+		"typescriptreact": "javascript",
+		"javascriptreact": "javascript"
+	}
 }
