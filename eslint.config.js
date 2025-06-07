@@ -99,7 +99,7 @@ export default defineConfig(
 		},
 	},
 	{
-		extends: [yml.configs["flat/recommended"], yml.configs["flat/prettier"]],
+		extends: [yml.configs["flat/standard"], yml.configs["flat/prettier"]],
 		files: ["**/*.{yml,yaml}"],
 		rules: {
 			"yml/file-extension": "off",
