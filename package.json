@@ -113,6 +113,7 @@
 			"@tailwindcss/oxide",
 			"core-js",
 			"esbuild",
+			"oxc-resolver",
 			"unrs-resolver"
 		]
 	}
