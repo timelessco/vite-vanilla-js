@@ -1,5 +1,30 @@
 # Changelog
 
+## <small>2.0.1 (2025-08-29)</small>
+
+### 🗃️ Commits
+
+
+#### 🐞 Bug Fixes
+
+- **`eslint:`** update YAML configuration to extend standard rules - [cf447a4](https://github.com/timelessco/vite-vanilla-js/commit/cf447a4ea0c5e56a448aeac61032e3e2bc4dd3d7) by @navin-moorthy
+
+
+
+#### 🔨 Maintenance Updates
+
+- **`deps:`** 🧹 update dependencies to latest versions - [ed6053b](https://github.com/timelessco/vite-vanilla-js/commit/ed6053b8cb88564aa959b745ab1c55adc65f5e05) by @navin-moorthy
+
+- **`deps:`** 🧹 update Node.js engine requirements - [5df081c](https://github.com/timelessco/vite-vanilla-js/commit/5df081c1b9dc7d1d191825d4a157651cb5054f36) by @navin-moorthy
+
+- **`deps:`** add oxc-resolver to dependencies - [4a7b5a3](https://github.com/timelessco/vite-vanilla-js/commit/4a7b5a3673aa61653bf38b6a7e50c5d8d9f1036e) by @navin-moorthy
+
+- **`deps:`** update all dependencies ([#8](https://github.com/timelessco/vite-vanilla-js/issues/8)) - [4d6445d](https://github.com/timelessco/vite-vanilla-js/commit/4d6445db97db38b13cad9dc9b106211ecdb957f3) by @renovate[bot]
+
+- **`deps:`** update all dependencies ([#9](https://github.com/timelessco/vite-vanilla-js/issues/9)) - [5e9a626](https://github.com/timelessco/vite-vanilla-js/commit/5e9a626bd1c0e6f2601709aaa8caba3b3b3a9c47) by @renovate[bot]
+
+- **`deps:`** update eslint and tailwindcss dependencies, improve eslint commands - [cecf3d8](https://github.com/timelessco/vite-vanilla-js/commit/cecf3d83608b138f1a7644118e0dce4cfe0eb0d2) by @navin-moorthy
+
 ## 2.0.0 (2025-06-06)
 
 ### 🧨 BREAKING CHANGE
