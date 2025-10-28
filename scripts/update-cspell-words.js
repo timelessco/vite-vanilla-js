@@ -34,7 +34,7 @@ async function updateCspellWords() {
 	const newWords = stdout
 		.trim()
 		.split("\n")
-		.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+		.toSorted((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
 	// Update with new words
 	await updateWordsInConfig(cspellPath, newWords);
