@@ -36,9 +36,13 @@ const args = parseArgs({
 // Run with args if provided, otherwise show prompt
 let value;
 if (Object.keys(args).length > 0) {
-	if (args.all) value = "all";
-	else if (args.dist) value = DIST;
-	else if (args["node-modules"]) value = NODE_MODULES;
+	if (args.all) {
+		value = "all";
+	} else if (args.dist) {
+		value = DIST;
+	} else if (args["node-modules"]) {
+		value = NODE_MODULES;
+	}
 } else {
 	value = await select({
 		choices: options,

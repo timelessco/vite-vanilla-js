@@ -209,7 +209,9 @@ export const transform = async (commitOriginal, context) => {
 		context.hasOtherNotableChanges = false;
 	}
 
-	if (entry) commit.type = entry.section;
+	if (entry) {
+		commit.type = entry.section;
+	}
 
 	if (commit.scope === "*") {
 		commit.scope = "";
