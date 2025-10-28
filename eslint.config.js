@@ -1,9 +1,9 @@
 /* eslint-disable @eslint-community/eslint-comments/disable-enable-pair */
 
-import comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
 import js from "@eslint/js";
+import comments from "eslint-plugin-eslint-comments/configs";
 import importPlugin from "eslint-plugin-import-x";
-import jsdoc from "eslint-plugin-jsdoc";
+import jsdocPlugin from "eslint-plugin-jsdoc";
 import jsonc from "eslint-plugin-jsonc";
 import node from "eslint-plugin-n";
 import packageJson from "eslint-plugin-package-json";
@@ -76,7 +76,7 @@ export default defineConfig(
 			"unicorn/prevent-abbreviations": "off",
 		},
 	},
-	jsdoc.configs["flat/recommended"],
+	jsdocPlugin.configs["flat/recommended"],
 	{
 		rules: {
 			"jsdoc/check-tag-names": ["warn", { typed: false }],
